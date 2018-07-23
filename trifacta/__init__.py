@@ -20,7 +20,7 @@ import requests, json, time, datetime, io
 from pywebhdfs.webhdfs import PyWebHdfsClient
 from urllib.parse import urlparse
 import pandas as pd
-class Trifacta:
+class Client:
     def __init__(self, trifacta_base_url, user_id, password):
         """Example: t = Trifacta('https://partnerdemo.trifacta.net', 'guest_user', 'guest_password')"""
         self.trifacta_base_url = trifacta_base_url
