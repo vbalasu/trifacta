@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="trifacta",
-    version="1.0.5",
+    version="1.0.6",
     author="Vijay Balasubramaniam",
     author_email="vbalasu@gmail.com",
     description="Trifacta client",
