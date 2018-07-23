@@ -1,6 +1,12 @@
 
 # trifacta
 
+Use this library to do the following:
+1. Connect to a Trifacta instance
+2. Run a job
+3. Download results to a pandas dataframe; OR
+4. Download results as text/csv
+
 
 ```python
 #!pip install trifacta
@@ -9,20 +15,20 @@ import trifacta
 
 
 ```python
-#Connect to Trifacta by providing the URL, username and password
+#Step 1: Connect to Trifacta by providing the URL, username and password
 t = trifacta.Client('https://partnerdemo.trifacta.net', 'demo@trifacta.com', 'demo')
 ```
 
-#### Get the wrangled dataset id from the URL
+#### Get the wrangled dataset id from the URL in the Trifacta UI
 Make sure that you have run the job manually at least once
-![Screenshot_recipe](screenshot_recipe.png)
+![Screenshot_recipe](https://cdn.rawgit.com/vbalasu/trifacta/86890c1f/screenshot_recipe.png)
 
 #### Note the output path (be sure to set it to "replace")
-![Run Job](run_job_highlight.png)
+![Run Job](https://cdn.rawgit.com/vbalasu/trifacta/86890c1f/run_job_highlight.png)
 
 
 ```python
-#Run the job
+#Step 2: Run the job
 t.run_job(14478)
 ```
 
@@ -41,7 +47,7 @@ t.run_job(14478)
 
 
 ```python
-#Get a pandas dataframe with the results
+#Step 3: Get a pandas dataframe with the results
 df = t.get_dataframe('/trifacta/queryResults/demo@trifacta.com/demo_output.csv')
 ```
 
@@ -509,5 +515,23 @@ df
 </table>
 <p>96 rows × 4 columns</p>
 </div>
+
+
+
+
+```python
+#Step 4: Download results as text/csv
+file_contents = t.get_file_contents('/trifacta/queryResults/demo@trifacta.com/demo_output.csv')
+```
+
+
+```python
+file_contents
+```
+
+
+
+
+    '"Neighborhood","HouseStyle","row_count","sum_LotArea"\n"NAmes","1Story","159","1589811"\n"CollgCr","1Story","91","841644"\n"Gilbert","2Story","60","668112"\n"Timber","1Story","23","554694"\n"CollgCr","2Story","53","546602"\n"NridgHt","1Story","51","537687"\n"Sawyer","1Story","53","528438"\n"Edwards","1Story","53","511296"\n"NoRidge","2Story","33","485691"\n"NWAmes","1Story","35","403813"\n"ClearCr","1Story","11","395797"\n"Mitchel","1Story","32","394436"\n"Somerst","1Story","37","350820"\n"NWAmes","2Story","29","348885"\n"Somerst","2Story","49","323495"\n"NridgHt","2Story","26","300685"\n"OldTown","2Story","32","274465"\n"SawyerW","1Story","28","271008"\n"OldTown","1.5Fin","33","267283"\n"ClearCr","1.5Fin","6","266593"\n"Crawfor","1Story","19","260639"\n"SawyerW","2Story","25","255102"\n"NAmes","2Story","22","249793"\n"OldTown","1Story","33","240257"\n"Edwards","1.5Fin","22","228970"\n"Crawfor","2Story","20","222029"\n"NAmes","SLvl","21","221177"\n"Edwards","2Story","14","185799"\n"Timber","1.5Fin","2","178418"\n"BrkSide","1.5Fin","25","172233"\n"ClearCr","2Story","8","164932"\n"Gilbert","1Story","11","155214"\n"NAmes","1.5Fin","15","153818"\n"StoneBr","1Story","18","149552"\n"BrkSide","1Story","20","134561"\n"IDOTRR","1.5Fin","16","133246"\n"Veenker","1Story","8","128367"\n"Timber","2Story","9","122229"\n"StoneBr","2Story","7","117246"\n"IDOTRR","1Story","13","109070"\n"Crawfor","1.5Fin","9","90378"\n"SWISU","1.5Fin","12","89785"\n"NWAmes","SLvl","7","86695"\n"OldTown","2.5Unf","8","74470"\n"NoRidge","1Story","6","71886"\n"Sawyer","1.5Fin","5","69098"\n"BrkSide","2Story","6","67318"\n"Sawyer","SFoyer","6","65721"\n"Gilbert","SLvl","7","63493"\n"Blmngtn","1Story","17","57769"\n"SWISU","2Story","7","57349"\n"Sawyer","SLvl","5","57205"\n"Edwards","SLvl","6","53571"\n"Sawyer","2Story","5","53525"\n"Mitchel","SLvl","5","51425"\n"NAmes","SFoyer","6","50055"\n"Mitchel","1.5Fin","4","49570"\n"OldTown","2.5Fin","3","46856"\n"Timber","SLvl","4","43900"\n"Edwards","SFoyer","5","42229"\n"Mitchel","SFoyer","5","41475"\n"SWISU","2.5Fin","4","41363"\n"BrkSide","1.5Unf","6","40904"\n"IDOTRR","2Story","5","38074"\n"ClearCr","SLvl","3","37199"\n"Mitchel","2Story","3","32684"\n"CollgCr","SLvl","3","30135"\n"BrDale","2Story","16","28816"\n"Veenker","SLvl","2","25757"\n"NoRidge","1.5Fin","2","25398"\n"SawyerW","SFoyer","3","25267"\n"CollgCr","SFoyer","3","24491"\n"MeadowV","2Story","8","19611"\n"NPkVill","1Story","4","17942"\n"Veenker","2Story","1","17542"\n"NAmes","1.5Unf","2","16827"\n"SWISU","1Story","2","14692"\n"OldTown","SFoyer","2","14179"\n"NWAmes","1.5Fin","1","13837"\n"SawyerW","SLvl","1","12800"\n"IDOTRR","1.5Unf","2","12449"\n"SawyerW","1.5Fin","1","12327"\n"Gilbert","1.5Fin","1","12134"\n"BrkSide","2.5Unf","1","11888"\n"Crawfor","2.5Fin","1","11526"\n"NPkVill","2Story","5","11465"\n"NWAmes","SFoyer","1","10625"\n"Crawfor","1.5Unf","1","10594"\n"OldTown","1.5Unf","2","9888"\n"MeadowV","SFoyer","6","9853"\n"SawyerW","1.5Unf","1","9000"\n"MeadowV","1Story","2","8448"\n"IDOTRR","2.5Unf","1","7200"\n"Crawfor","2.5Unf","1","7128"\n"Blueste","2Story","2","3250"\n"MeadowV","SLvl","1","1596"\n'
 
 
