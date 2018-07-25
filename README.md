@@ -5,7 +5,7 @@ Trifacta client that makes it easy to integrate Trifacta into your production an
 
 ### Usage Scenarios
 - **Jupyter**: Invoke Trifacta jobs from a Jupyter notebook and pass data back and forth between Jupyter and Trifacta
-- **Other Notebooks**: Integrate Trifacta with Databricks, Zepellin or any other notebook-style interface that supports Python
+- **Other Notebooks**: Integrate Trifacta with Azure Databricks, Zepellin or any other notebook-style interface that supports Python
 - **Scripts**: Automate Trifacta jobs and input/output using python scripts that can be easily executed from the command line or called from an external scheduler
 
 ### Functionality
@@ -26,7 +26,7 @@ import trifacta
 
 ```python
 #Step 1: Connect to Trifacta by providing the URL, username and password
-t = trifacta.Client('https://partnerdemo.trifacta.net', 'demo@trifacta.com', 'demo')
+t = trifacta.Client('https://partnerdemo.trifacta.net', 'userid@mydomain.com', 'mypassword')
 ```
 
 #### Get the wrangled dataset id from the URL in the Trifacta UI
