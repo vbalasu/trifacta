@@ -1,0 +1,22 @@
+{
+  "name": "trifacta",
+  "version": "1.0.0",
+  "description": "Trifacta client that makes it easy to integrate Trifacta into your production and data science workflows",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vbalasu/trifacta.git"
+  },
+  "author": "Vijay Balasubramaniam",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/vbalasu/trifacta/issues"
+  },
+  "homepage": "https://github.com/vbalasu/trifacta#readme"
+}
