@@ -27,7 +27,7 @@ class Client:
         self.user_id = user_id
         self.password = password
     def get_job_status(self, job_group_id):
-        response = requests.get(self.trifacta_base_url + '/v3/jobGroups/{0}/status'.format(job_group_id), auth=('admin@trifacta.local', 'Tr1f@ct@1!'))
+        response = requests.get(self.trifacta_base_url + '/v3/jobGroups/{0}/status'.format(job_group_id), auth=(self.user_id, self.password))
         return json.loads(response.text)
     def run_job(self, wrangled_dataset_id):
         """Get the wrangled_dataset_id from your browser's URL when editing the recipe"""
