@@ -18,5 +18,12 @@
   "bugs": {
     "url": "https://github.com/vbalasu/trifacta/issues"
   },
-  "homepage": "https://github.com/vbalasu/trifacta#readme"
+  "homepage": "https://github.com/vbalasu/trifacta#readme",
+  "dependencies": {
+    "bootstrap": "^4.1.3",
+    "handsontable": "^5.0.0",
+    "jquery": "^1.9.1",
+    "papaparse": "^4.6.0",
+    "popper.js": "^1.14.4"
+  }
 }
