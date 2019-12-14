@@ -6,7 +6,7 @@ pandas==0.23.3
 python-dateutil==2.7.3
 pytz==2018.5
 pywebhdfs==0.4.1
-requests==2.19.1
+requests==2.20.0
 six==1.11.0
 urllib3==1.23
 boto3
