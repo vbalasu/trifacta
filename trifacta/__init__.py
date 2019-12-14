@@ -43,7 +43,7 @@ class Client:
         return self.r
     def dataexchange_runjob_download(self, bucket_name, region_name='us-east-1'):
         assets = [{'AssetId':i['Id'], 'Bucket': bucket_name, 'Key': i['Name']} for i in self.dx.list_revision_assets(DataSetId=self.datasets[self.d.value], RevisionId=self.revisions[self.r.value])['Assets']]
-        response = self.dx.create_job(
+        self.createjob_response = self.dx.create_job(
             Details={
                 'ExportAssetsToS3': {
                     'AssetDestinations': assets,
@@ -53,7 +53,8 @@ class Client:
             },
             Type='EXPORT_ASSETS_TO_S3'
         )
-        return self.dx.start_job(JobId=response['Id'])
+        self.startjob_response = self.dx.start_job(JobId=response['Id'])
+        return {'createjob_response': self.createjob_response, 'startjob_response': self.startjob_response}
     def json_to_jsonlines(input_json, output_jsonlines, array_element):
         f = open(input_json)
         out = open(output_jsonlines, 'w+')
