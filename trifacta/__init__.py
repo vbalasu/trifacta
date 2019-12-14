@@ -28,7 +28,7 @@ class Client:
         self.trifacta_token = trifacta_token
     def dataexchange_list_datasets(self, region_name='us-east-1'):
         self.dx = boto3.client('dataexchange', region_name=region_name)
-        self.datasets = {i['Name']:i['Id'] for i in dx.list_data_sets(Origin='ENTITLED')['DataSets']}
+        self.datasets = {i['Name']:i['Id'] for i in self.dx.list_data_sets(Origin='ENTITLED')['DataSets']}
         return self.datasets
     def dataexchange_choose_dataset(self, region_name='us-east-1'):
         self.dataexchange_list_datasets(region_name=region_name)
