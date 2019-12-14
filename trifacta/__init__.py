@@ -1,20 +1,8 @@
-
-# coding: utf-8
-
 # # trifacta
 # 
 # 1. Connect to a remote Trifacta instance
 # 2. Run jobs
 # 3. Send and receive files
-
-# In[1]:
-
-
-#!pip install pywebhdfs
-
-
-# In[2]:
-
 
 import requests, json, time, datetime, io
 import boto3, ipywidgets as widgets, ijson, simplejson
@@ -75,13 +63,13 @@ class Client:
         out.close()
         f.close()
     def get_job_status(self, job_group_id):
-        response = requests.get(self.trifacta_base_url + '/v3/jobGroups/{0}/status'.format(job_group_id), headers = {"Authorization": "Bearer "+self.trifacta_token})
+        response = requests.get(self.trifacta_base_url + '/v4/jobGroups/{0}/status'.format(job_group_id), headers = {"Authorization": "Bearer "+self.trifacta_token})
         return json.loads(response.text)
     def run_job(self, wrangled_dataset_id):
         """Get the wrangled_dataset_id from your browser's URL when editing the recipe"""
         request_body = {"wrangledDataset": {"id": wrangled_dataset_id }}
         print('About to run job', flush=True)
-        response = requests.post(self.trifacta_base_url + '/v3/jobGroups', headers = {"Authorization": "Bearer "+self.trifacta_token}, json=request_body)
+        response = requests.post(self.trifacta_base_url + '/v4/jobGroups', headers = {"Authorization": "Bearer "+self.trifacta_token}, json=request_body)
         response_obj = json.loads(response.text)
         print(response_obj, flush=True)
         self.job_group_id = response_obj['jobgroupId']
