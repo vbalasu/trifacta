@@ -13,7 +13,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/vbalasu/trifacta",
     packages=setuptools.find_packages(),
-    install_requires=['requests','pywebhdfs','pandas'],
+    install_requires=['requests','pywebhdfs','pandas', 'boto3', 'ipywidgets', 'ijson', 'simplejson'],
     classifiers=(
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
