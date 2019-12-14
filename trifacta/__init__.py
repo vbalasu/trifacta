@@ -30,11 +30,11 @@ class Client:
         self.r = widgets.RadioButtons(options=self.revisions.keys(), description='Revision: ', layout=widgets.Layout(width='100%'))
         return self.r
     def dataexchange_runjob_download(self, bucket_name, region_name='us-east-1'):
-        assets = [{'AssetId':i['Id'], 'Bucket': bucket_name, 'Key': i['Name']} for i in self.dx.list_revision_assets(DataSetId=self.datasets[self.d.value], RevisionId=self.revisions[self.r.value])['Assets']]
+        self.assets = [{'AssetId':i['Id'], 'Bucket': bucket_name, 'Key': i['Name']} for i in self.dx.list_revision_assets(DataSetId=self.datasets[self.d.value], RevisionId=self.revisions[self.r.value])['Assets']]
         self.createjob_response = self.dx.create_job(
             Details={
                 'ExportAssetsToS3': {
-                    'AssetDestinations': assets,
+                    'AssetDestinations': self.assets,
                     'DataSetId': self.datasets[self.d.value],
                     'RevisionId': self.revisions[self.r.value]
                 }
