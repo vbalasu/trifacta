@@ -17,6 +17,7 @@
 
 
 import requests, json, time, datetime, io
+import boto3, ipywidgets as widgets, ijson, simplejson
 from pywebhdfs.webhdfs import PyWebHdfsClient
 from urllib.parse import urlparse
 import pandas as pd
@@ -26,6 +27,20 @@ class Client:
         self.trifacta_base_url = trifacta_base_url
         self.user_id = user_id
         self.password = password
+    def dataexchange_list_datasets(self, region_name='us-east-1'):
+        self.dx = boto3.client('dataexchange', region_name=region_name)
+        self.datasets = {i['Name']:i['Id'] for i in dx.list_data_sets(Origin='ENTITLED')['DataSets']}
+        return self.datasets
+    def dataexchange_choose_dataset(self, region_name='us-east-1'):
+        self.dataexchange_list_datasets(region_name=region_name)
+        self.d =  widgets.RadioButtons(options=self.datasets.keys(), description='Dataset: ', layout=widgets.Layout(width='100%'))
+        return self.d
+    def dataexchange_list_revisions(self, region_name='us-east-1'):
+        self.revisions = {i['CreatedAt'].isoformat():i['Id'] for i in self.dx.list_data_set_revisions(DataSetId=datasets[self.d.value])['Revisions']}
+        return self.revisions
+    def dataexchange_choose_revision(self, region_name='us-east-1'):
+        self.r = widgets.RadioButtons(options=self.revisions.keys(), description='Revision: ', layout=widgets.Layout(width='100%'))
+        return self.r
     def get_job_status(self, job_group_id):
         response = requests.get(self.trifacta_base_url + '/v3/jobGroups/{0}/status'.format(job_group_id), auth=(self.user_id, self.password))
         return json.loads(response.text)
