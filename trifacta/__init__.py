@@ -22,11 +22,10 @@ from pywebhdfs.webhdfs import PyWebHdfsClient
 from urllib.parse import urlparse
 import pandas as pd
 class Client:
-    def __init__(self, trifacta_base_url, user_id, password):
-        """Example: t = Trifacta('https://partnerdemo.trifacta.net', 'guest_user', 'guest_password')"""
+    def __init__(self, trifacta_base_url, trifacta_token):
+        """Example: t = Trifacta('https://partnerdemo.trifacta.net', 'MY_TRIFACTA_TOKEN')"""
         self.trifacta_base_url = trifacta_base_url
-        self.user_id = user_id
-        self.password = password
+        self.trifacta_token = trifacta_token
     def dataexchange_list_datasets(self, region_name='us-east-1'):
         self.dx = boto3.client('dataexchange', region_name=region_name)
         self.datasets = {i['Name']:i['Id'] for i in dx.list_data_sets(Origin='ENTITLED')['DataSets']}
@@ -42,13 +41,13 @@ class Client:
         self.r = widgets.RadioButtons(options=self.revisions.keys(), description='Revision: ', layout=widgets.Layout(width='100%'))
         return self.r
     def get_job_status(self, job_group_id):
-        response = requests.get(self.trifacta_base_url + '/v3/jobGroups/{0}/status'.format(job_group_id), auth=(self.user_id, self.password))
+        response = requests.get(self.trifacta_base_url + '/v3/jobGroups/{0}/status'.format(job_group_id), headers = {"Authorization": "Bearer "+self.trifacta_token})
         return json.loads(response.text)
     def run_job(self, wrangled_dataset_id):
         """Get the wrangled_dataset_id from your browser's URL when editing the recipe"""
         request_body = {"wrangledDataset": {"id": wrangled_dataset_id }}
         print('About to run job', flush=True)
-        response = requests.post(self.trifacta_base_url + '/v3/jobGroups', auth=(self.user_id, self.password), json=request_body)
+        response = requests.post(self.trifacta_base_url + '/v3/jobGroups', headers = {"Authorization": "Bearer "+self.trifacta_token}, json=request_body)
         response_obj = json.loads(response.text)
         print(response_obj, flush=True)
         self.job_group_id = response_obj['jobgroupId']
