@@ -54,7 +54,16 @@ class Client:
             Type='EXPORT_ASSETS_TO_S3'
         )
         self.startjob_response = self.dx.start_job(JobId=self.createjob_response['Id'])
-        return {'createjob_response': self.createjob_response, 'startjob_response': self.startjob_response}
+        self.dx_job_id = self.createjob_response['Id']
+        print('JobId '+self.dx_job_id+' started')
+        import time
+        while self.dx.get_job(JobId=self.dx_job_id)['State'] not in ['ERROR,'COMPLETED,'CANCELLED','TIMED_OUT']:
+            print('.')
+            time.sleep(5)
+        print(self.dx.get_job(JobId=self.dx_job_id)['State'])
+        return True
+    def dataexchange_runjob_status(self, job_id):
+        return self.dx.get_job(JobId=job_id)['State']
     def json_to_jsonlines(input_json, output_jsonlines, array_element):
         f = open(input_json)
         out = open(output_jsonlines, 'w+')
