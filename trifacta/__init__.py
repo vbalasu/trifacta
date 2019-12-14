@@ -38,6 +38,7 @@ class Client:
         self.revisions = {i['CreatedAt'].isoformat():i['Id'] for i in self.dx.list_data_set_revisions(DataSetId=datasets[self.d.value])['Revisions']}
         return self.revisions
     def dataexchange_choose_revision(self, region_name='us-east-1'):
+        self.dataexchange_list_revisions(region_name=region_name)
         self.r = widgets.RadioButtons(options=self.revisions.keys(), description='Revision: ', layout=widgets.Layout(width='100%'))
         return self.r
     def get_job_status(self, job_group_id):
