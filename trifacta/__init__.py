@@ -57,10 +57,12 @@ class Client:
         self.dx_job_id = self.createjob_response['Id']
         print('JobId '+self.dx_job_id+' started')
         import time
-        while status=self.dx.get_job(JobId=self.dx_job_id)['State'] not in ['ERROR','COMPLETED','CANCELLED','TIMED_OUT']:
+        status=self.dx.get_job(JobId=self.dx_job_id)['State']
+        while status not in ['ERROR','COMPLETED','CANCELLED','TIMED_OUT']:
             print(status)
             time.sleep(5)
-        print(self.dx.get_job(JobId=self.dx_job_id)['State'])
+            status=self.dx.get_job(JobId=self.dx_job_id)['State']
+        print(status)
         return True
     def dataexchange_runjob_status(self, job_id):
         return self.dx.get_job(JobId=job_id)['State']
