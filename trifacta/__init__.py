@@ -41,6 +41,27 @@ class Client:
         self.dataexchange_list_revisions(region_name=region_name)
         self.r = widgets.RadioButtons(options=self.revisions.keys(), description='Revision: ', layout=widgets.Layout(width='100%'))
         return self.r
+    def dataexchange_runjob_download(self, bucket_name, region_name='us-east-1'):
+        assets = [{'AssetId':i['Id'], 'Bucket': bucket_name, 'Key': i['Name']} for i in self.dx.list_revision_assets(DataSetId=self.datasets[self.d.value], RevisionId=self.revisions[self.r.value])['Assets']]
+        response = self.dx.create_job(
+            Details={
+                'ExportAssetsToS3': {
+                    'AssetDestinations': assets,
+                    'DataSetId': self.datasets[self.d.value],
+                    'RevisionId': self.revisions[self.r.value]
+                }
+            },
+            Type='EXPORT_ASSETS_TO_S3'
+        )
+        return self.dx.start_job(JobId=response['Id'])
+    def json_to_jsonlines(input_json, output_jsonlines, array_element):
+        f = open(input_json)
+        out = open(output_jsonlines, 'w+')
+        objects = ijson.items(f, array_element+'.item')
+        for o in objects:
+            out.write(simplejson.dumps(o))
+        out.close()
+        f.close()
     def get_job_status(self, job_group_id):
         response = requests.get(self.trifacta_base_url + '/v3/jobGroups/{0}/status'.format(job_group_id), headers = {"Authorization": "Bearer "+self.trifacta_token})
         return json.loads(response.text)
