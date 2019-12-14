@@ -66,7 +66,7 @@ class Client:
         return True
     def dataexchange_runjob_status(self, job_id):
         return self.dx.get_job(JobId=job_id)['State']
-    def json_to_jsonlines(input_json, output_jsonlines, array_element):
+    def json_to_jsonlines(self, input_json, output_jsonlines, array_element):
         f = open(input_json)
         out = open(output_jsonlines, 'w+')
         objects = ijson.items(f, array_element+'.item')
