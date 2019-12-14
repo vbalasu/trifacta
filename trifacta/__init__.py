@@ -53,7 +53,7 @@ class Client:
             },
             Type='EXPORT_ASSETS_TO_S3'
         )
-        self.startjob_response = self.dx.start_job(JobId=response['Id'])
+        self.startjob_response = self.dx.start_job(JobId=self.createjob_response['Id'])
         return {'createjob_response': self.createjob_response, 'startjob_response': self.startjob_response}
     def json_to_jsonlines(input_json, output_jsonlines, array_element):
         f = open(input_json)
