@@ -57,7 +57,7 @@ class Client:
         self.dx_job_id = self.createjob_response['Id']
         print('JobId '+self.dx_job_id+' started')
         import time
-        while self.dx.get_job(JobId=self.dx_job_id)['State'] not in ['ERROR','COMPLETED,'CANCELLED','TIMED_OUT']:
+        while self.dx.get_job(JobId=self.dx_job_id)['State'] not in ['ERROR','COMPLETED','CANCELLED','TIMED_OUT']:
             print('.')
             time.sleep(5)
         print(self.dx.get_job(JobId=self.dx_job_id)['State'])
