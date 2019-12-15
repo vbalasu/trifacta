@@ -72,7 +72,7 @@ class Client:
         response = requests.post(self.trifacta_base_url + '/v4/jobGroups', headers = {"Authorization": "Bearer "+self.trifacta_token}, json=request_body)
         response_obj = json.loads(response.text)
         print(response_obj, flush=True)
-        self.job_group_id = response_obj['jobgroupId']
+        self.job_group_id = response_obj['id']
         job_status = self.get_job_status(self.job_group_id)
         while job_status != 'Complete':
             print(datetime.datetime.today(), job_status, flush=True)
