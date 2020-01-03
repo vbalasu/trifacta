@@ -59,7 +59,7 @@ class Client:
         out = open(output_jsonlines, 'w+')
         objects = ijson.items(f, array_element+'.item')
         for o in objects:
-            out.write(simplejson.dumps(o))
+            out.write(simplejson.dumps(o)+'\n')
         out.close()
         f.close()
     def get_job_status(self, job_group_id):
