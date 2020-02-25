@@ -24,7 +24,7 @@ import trifacta
 
 If you need an access token, you can generate it as follows:
 
-<img src="media/generate_token.png" width=500px />
+<img src="https://github.com/vbalasu/trifacta/raw/master/media/generate_token.png" width=500px />
 
 
 ```python
@@ -34,10 +34,10 @@ t = trifacta.Client('http://partnerdemo.amer.trifacta.net:3005', 'YOUR_ACCESS_TO
 
 #### Get the wrangled dataset id from the URL in the Trifacta UI
 Make sure that you have run the job manually at least once
-![Edit recipe](media/edit_recipe.png)
+![Edit recipe](https://github.com/vbalasu/trifacta/raw/master/media/edit_recipe.png)
 
 #### Note the output path (be sure to set it to "replace")
-![Publish settings](media/publish_settings.png)
+![Publish settings](https://github.com/vbalasu/trifacta/raw/master/media/publish_settings.png)
 
 
 ```python
